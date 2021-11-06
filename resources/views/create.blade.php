@@ -20,7 +20,7 @@
           <label class="form-check-label" for="{{ $tag['id'] }}">{{ $tag['name']}}</label>
         </div>
     @endforeach
-        <input type="text" class="form-control w-50 mb-3" name="new_tag" placeholder="Input New Tag">
+        <input type="text" class="form-control w-50 mb-3" name="new_tag" placeholder="Create New Tag">
         <!-- typeをSubmitにすると保存ボタンを押したときにFormのアクションURL移動する -->
         <button type="submit" class="btn btn-success">Save</button>
     </form>
