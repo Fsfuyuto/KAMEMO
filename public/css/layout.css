@@ -1,0 +1,76 @@
+.my-card-body{
+    height: calc( 100vh - (55px + 48px) );
+}
+
+#delete-form:hover{
+  cursor: pointer;
+}
+
+#plus{
+  color:#2FA360;
+  text-decoration: none;
+  background-color: transparent;
+}
+
+/* 元々のチェックボックス（非表示） */
+.form-check-input[type="checkbox"]{
+  display: none;
+}
+/* チェックボックスの代わりを成すラベル */
+.form-check-input[type="checkbox"]+label{
+  display: none;
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  padding-left: 25px;
+  padding-right: 10px;
+}
+/* ラベルの左に表示させる正方形のボックス□ */
+.form-check-input[type="checkbox"]+label::before{
+  content: "";
+  position: absolute;
+  display: block;
+  box-sizing: border-box;
+  width: 20px;
+  height: 20px;
+  margin-top: -10px;
+  left: 0;
+  top: 50%;
+  border: 1px solid;
+  border-radius: 2px;
+  border-color:  #585753; /* 枠の色変更 お好きな色を */
+  background-color: #FFF; /* 背景の色変更 お好きな色を */
+}
+/* チェックが入った時のレ点 */
+.form-check-input[type="checkbox"]:checked+label::after{
+  content: "";
+  position: absolute;
+  display: block;
+  box-sizing: border-box;
+  width: 18px;
+  height: 9px;
+  margin-top: -9px;
+  top: 50%;
+  left: 3px;
+  transform: rotate(-45deg);
+  border-bottom: 3px solid;
+  border-left: 3px solid;
+  border-color:#2FA360; /* チェックの色変更 お好きな色を */
+}
+
+/* ellipseを当てると1行になる */
+.elipsis{
+    overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+  }
+
+  
+  @media screen and (max-width:768px) { 
+    /*　画面サイズが480pxからはここを読み込む　*/
+    .my-card-body{
+      height: auto;
+      max-height: 50vh;
+    }
+  }
+
