@@ -37,34 +37,6 @@ class HomeController extends Controller
         return view('create', compact('tags'));
     }
 
-    public function edit($id)
-    {
-        
-        // MemosとTagsの🆔を被らず取得
-        $edit_memo = Memo::select('memos.*', 'tags.id AS tag_id')
-            // memosテーブルにmemotagsテーブルをくっつける
-            ->leftJoin('memo_tags', 'memo_tags.memo_id', '=', 'memos.id')
-            // 次にtagsテーブルをくっつける。これで三つのテーブルをくっつける
-            ->leftJoin('tags', 'memo_tags.tag_id', '=', 'tags.id')
-            ->where('memos.user_id', '=', \Auth::id())
-            ->where('memos.id', '=', $id)
-            ->whereNull('memos.deleted_at')
-            ->get();
-
-            // タグだけを抽出した配列
-            $include_tags = [];
-            foreach($edit_memo as $memo){
-                array_push($include_tags, $memo['tag_id']);
-            }
-        
-        // タグ一覧を取得
-        $tags = Tag::where('user_id', '=', \Auth::id())->whereNull('deleted_at')->orderBy('id', 'DESC')->get();    
-
-        // 取得したViewを渡す
-        // compactで変数を渡し（＄は不要）、edit用のBladeファイルでview
-        return view('edit', compact('edit_memo', 'include_tags', 'tags'));
-    }
-
     //呪文のように覚える
     // POSTの場合は、 Requestファザードをインスタンス化しておくと便利
     public function store(Request $request)
@@ -100,6 +72,35 @@ class HomeController extends Controller
 
         return redirect( route('home') );
     }
+
+    public function edit($id)
+    {
+        
+        // MemosとTagsの🆔を被らず取得
+        $edit_memo = Memo::select('memos.*', 'tags.id AS tag_id')
+            // memosテーブルにmemotagsテーブルをくっつける
+            ->leftJoin('memo_tags', 'memo_tags.memo_id', '=', 'memos.id')
+            // 次にtagsテーブルをくっつける。これで三つのテーブルをくっつける
+            ->leftJoin('tags', 'memo_tags.tag_id', '=', 'tags.id')
+            ->where('memos.user_id', '=', \Auth::id())
+            ->where('memos.id', '=', $id)
+            ->whereNull('memos.deleted_at')
+            ->get();
+
+            // タグだけを抽出した配列
+            $include_tags = [];
+            foreach($edit_memo as $memo){
+                array_push($include_tags, $memo['tag_id']);
+            }
+        
+        // タグ一覧を取得
+        $tags = Tag::where('user_id', '=', \Auth::id())->whereNull('deleted_at')->orderBy('id', 'DESC')->get();    
+
+        // 取得したViewを渡す
+        // compactで変数を渡し（＄は不要）、edit用のBladeファイルでview
+        return view('edit', compact('edit_memo', 'include_tags', 'tags'));
+    }
+
 
     public function update(Request $request)
     {
