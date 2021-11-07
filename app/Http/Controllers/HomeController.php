@@ -3,13 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
 // DBへのアクセスはモデルを通じて行う→Memoモデルをインポート
 use App\Models\Memo;
-
-use DB;
 use App\Models\Tag;
 use App\Models\Memotag;
+use DB;
+
 
 
 class HomeController extends Controller
@@ -30,9 +29,7 @@ class HomeController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index()
-    {
-        
-
+    {       
         $tags = Tag::where('user_id', '=', \Auth::id())->whereNull('deleted_at')->orderBy('id', 'DESC')->get();
         
         // 取得したViewを渡す

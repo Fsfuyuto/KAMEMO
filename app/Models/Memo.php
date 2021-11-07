@@ -5,17 +5,20 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+
 class Memo extends Model
-{
+{    
     use HasFactory;
+
     public function getMyMemo(){
-        $query_tag = \Request::query('tag');
+        
         // ==== ベースのメソッド ====
         $query = Memo::query()->select('memos.*')
             ->where('user_id', '=', \Auth::id())
             ->whereNull('deleted_at')
             ->orderBy('updated_at', 'DESC');// ASC＝小さい順、DESC=大きい順
         // ==== ベースのメソッドここまで ====
+        $query_tag = \Request::query('tag');
 
         // もしクエリパラメータtagがあればタグで絞り込み
         if( !empty($query_tag) ){
